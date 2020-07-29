@@ -1,0 +1,40 @@
+const path = require('path')
+module.exports = {
+    entry:{
+        main:'./main.js'
+    },
+    output:{
+        path:'/dist',
+        publicPath:'/'
+    },
+    module:{
+        rules:[
+            {
+                test:/\.js$/,
+                use:{
+                    loader:'babel-loader',
+                    options:{
+                        presets:['@babel/preset-env'],
+                        plugins:[[
+                            "@babel/plugin-transform-react-jsx",
+                            {pragma:"ToyReact.createElement"}
+                        ]]
+                    }
+                }
+            }
+        ]
+    },
+    mode:'development',
+    optimization:{
+        minimize:false
+    },
+    devServer:{
+        contentBase:path.join(__dirname,'dist'),
+        // historyApiFallback:true,
+        inline:true,
+        hot:true,
+        port:3000,
+        open:true,
+        openPage:'main'
+    }
+}
